@@ -28,7 +28,7 @@ let firstPike = {
   //generate a random number of customers per hour based on location min/max
   generateCustomerLoad: function() {
     let custPossible = this.maxCust - this.minCust;
-    return Math.floor(Math.random() * custPossible) + this.minCust;
+    return Math.floor(Math.random() * custPossible + 1) + this.minCust;
   },
   //generate cookies per hour based on customers per hour and hours of operation
   getCookiesPerHour: function() {
@@ -95,7 +95,7 @@ let seaTac = {
   //generate a random number of customers per hour based on location min/max
   generateCustomerLoad: function() {
     let custPossible = this.maxCust - this.minCust;
-    return Math.floor(Math.random() * custPossible) + this.minCust;
+    return Math.floor(Math.random() * custPossible + 1) + this.minCust;
   },
   //generate cookies per hour based on customers per hour and hours of operation
   getCookiesPerHour: function() {
@@ -137,8 +137,8 @@ let seaTac = {
 let seaCenter = {
   storeName: 'seaCenter',
   displayedName: 'Seattle Center',
-  minCust: 23,
-  maxCust: 65,
+  minCust: 11,
+  maxCust: 38,
   hoursOfOperation: [
     '6am',
     '7am',
@@ -156,13 +156,13 @@ let seaCenter = {
     '7pm',
     '8pm'
   ],
-  cookiesPerSale: 6.3,
+  cookiesPerSale: 3.7,
   cookiesPerHour: [],
   custPerHour: [],
   //generate a random number of customers per hour based on location min/max
   generateCustomerLoad: function() {
     let custPossible = this.maxCust - this.minCust;
-    return Math.floor(Math.random() * custPossible) + this.minCust;
+    return Math.floor(Math.random() * custPossible + 1) + this.minCust;
   },
   //generate cookies per hour based on customers per hour and hours of operation
   getCookiesPerHour: function() {
@@ -204,8 +204,8 @@ let seaCenter = {
 let capHill = {
   storeName: 'capHill',
   displayedName: 'Capitol Hill',
-  minCust: 23,
-  maxCust: 65,
+  minCust: 20,
+  maxCust: 38,
   hoursOfOperation: [
     '6am',
     '7am',
@@ -223,13 +223,13 @@ let capHill = {
     '7pm',
     '8pm'
   ],
-  cookiesPerSale: 6.3,
+  cookiesPerSale: 2.3,
   cookiesPerHour: [],
   custPerHour: [],
   //generate a random number of customers per hour based on location min/max
   generateCustomerLoad: function() {
     let custPossible = this.maxCust - this.minCust;
-    return Math.floor(Math.random() * custPossible) + this.minCust;
+    return Math.floor(Math.random() * custPossible + 1) + this.minCust;
   },
   //generate cookies per hour based on customers per hour and hours of operation
   getCookiesPerHour: function() {
@@ -271,8 +271,8 @@ let capHill = {
 let alki = {
   storeName: 'alki',
   displayedName: 'Alki',
-  minCust: 23,
-  maxCust: 65,
+  minCust: 2,
+  maxCust: 16,
   hoursOfOperation: [
     '6am',
     '7am',
@@ -290,13 +290,13 @@ let alki = {
     '7pm',
     '8pm'
   ],
-  cookiesPerSale: 6.3,
+  cookiesPerSale: 4.6,
   cookiesPerHour: [],
   custPerHour: [],
   //generate a random number of customers per hour based on location min/max
   generateCustomerLoad: function() {
     let custPossible = this.maxCust - this.minCust;
-    return Math.floor(Math.random() * custPossible) + this.minCust;
+    return Math.floor(Math.random() * custPossible + 1) + this.minCust;
   },
   //generate cookies per hour based on customers per hour and hours of operation
   getCookiesPerHour: function() {
