@@ -52,8 +52,6 @@ let firstPike = {
     let parentEl = document.getElementById('storeInfo');
     parentEl.appendChild(ulParent);
     this.getCookiesPerHour();
-    console.log(this.cookiesPerHour);
-    // let ulEl = document.getElementById(this.storeName);
     for (let i = 0; i < this.hoursOfOperation.length; i++) {
       let liEl = document.createElement('li');
       liEl.innerText = `${this.hoursOfOperation[i]}: ${
@@ -121,8 +119,6 @@ let seaTac = {
     let parentEl = document.getElementById('storeInfo');
     parentEl.appendChild(ulParent);
     this.getCookiesPerHour();
-    console.log(this.cookiesPerHour);
-    // let ulEl = document.getElementById(this.storeName);
     for (let i = 0; i < this.hoursOfOperation.length; i++) {
       let liEl = document.createElement('li');
       liEl.innerText = `${this.hoursOfOperation[i]}: ${
@@ -190,8 +186,6 @@ let seaCenter = {
     let parentEl = document.getElementById('storeInfo');
     parentEl.appendChild(ulParent);
     this.getCookiesPerHour();
-    console.log(this.cookiesPerHour);
-    // let ulEl = document.getElementById(this.storeName);
     for (let i = 0; i < this.hoursOfOperation.length; i++) {
       let liEl = document.createElement('li');
       liEl.innerText = `${this.hoursOfOperation[i]}: ${
@@ -259,8 +253,6 @@ let capHill = {
     let parentEl = document.getElementById('storeInfo');
     parentEl.appendChild(ulParent);
     this.getCookiesPerHour();
-    console.log(this.cookiesPerHour);
-    // let ulEl = document.getElementById(this.storeName);
     for (let i = 0; i < this.hoursOfOperation.length; i++) {
       let liEl = document.createElement('li');
       liEl.innerText = `${this.hoursOfOperation[i]}: ${
@@ -328,8 +320,6 @@ let alki = {
     let parentEl = document.getElementById('storeInfo');
     parentEl.appendChild(ulParent);
     this.getCookiesPerHour();
-    console.log(this.cookiesPerHour);
-    // let ulEl = document.getElementById(this.storeName);
     for (let i = 0; i < this.hoursOfOperation.length; i++) {
       let liEl = document.createElement('li');
       liEl.innerText = `${this.hoursOfOperation[i]}: ${
