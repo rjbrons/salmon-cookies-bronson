@@ -1,7 +1,17 @@
+body {
+  color: rgb(88, 84, 51);
+  background-color: rgb(166, 76, 41);
+}
+
 ul {
   display: block;
   float: left;
-  padding: 20px;
+  margin: 20px;
+  background-color: rgb(210, 187, 124);
+}
+
+li {
+  padding: 5px;
 }
 ul li {
   list-style-type: disc;
