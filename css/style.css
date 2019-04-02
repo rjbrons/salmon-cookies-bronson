@@ -1,19 +1,4 @@
 body {
-  color: rgb(88, 84, 51);
-  background-color: rgb(166, 76, 41);
-}
-
-ul {
-  display: block;
-  float: left;
-  margin: 20px;
+  color: black;
   background-color: rgb(210, 187, 124);
-}
-
-li {
-  padding: 5px;
-}
-ul li {
-  list-style-type: disc;
-  margin-left: 30px;
 }

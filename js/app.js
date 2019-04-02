@@ -45,33 +45,36 @@ function CookieStore(storeName, displayName, minCust, maxCust, cookiesPerSale) {
       this.totalCookies += this.cookiesPerHour[this.cookiesPerHour.length - 1];
     });
   };
-  //render the store to the page
-  this.renderStore = function() {
-    let ulParent = document.createElement('ul');
-    ulParent.innerText = this.displayedName;
-    ulParent.setAttribute('id', this.storeName);
-    let parentEl = document.getElementById('storeInfo');
-    parentEl.appendChild(ulParent);
-    this.getCookiesPerHour();
-    for (let i = 0; i < this.hoursOfOperation.length; i++) {
-      let liEl = document.createElement('li');
-      liEl.innerText = `${this.hoursOfOperation[i]}: ${
-        this.cookiesPerHour[i]
-      } cookies.`;
-      ulParent.appendChild(liEl);
-    }
-    let liEl = document.createElement('li');
-    liEl.innerText = `TOTAL: ${this.totalCookies} cookies`;
-    ulParent.appendChild(liEl);
-  };
+
+  this.getCookiesPerHour();
+  // render the store to the page
+  // this.renderStore = function() {
+  // };
+
+  // let ulParent = document.createElement('ul');
+  // ulParent.innerText = this.displayedName;
+  // ulParent.setAttribute('id', this.storeName);
+  // let parentEl = document.getElementById('storeInfo');
+  // parentEl.appendChild(ulParent);
+  // this.getCookiesPerHour();
+  // for (let i = 0; i < this.hoursOfOperation.length; i++) {
+  //   let liEl = document.createElement('li');
+  //   liEl.innerText = `${this.hoursOfOperation[i]}: ${
+  //     this.cookiesPerHour[i]
+  //   } cookies.`;
+  //   ulParent.appendChild(liEl);
+  // }
+  // let liEl = document.createElement('li');
+  // liEl.innerText = `TOTAL: ${this.totalCookies} cookies`;
+  // ulParent.appendChild(liEl);
+  // };
 }
 
-var modifyDom = function(parent, child, content, parentId) {
+var modifyDom = function(parent, childType, content) {
   //get parent element
-  let parentEl = document.getElementById(parent);
-  parent.setAttribute('id', parentId);
+  let parentEl = parent;
   //create child element
-  let childEl = document.createElement(child);
+  let childEl = document.createElement(childType);
   //add content to child
   childEl.innerText = content;
   //append child to parent
@@ -84,4 +87,40 @@ new CookieStore('seaCenter', 'Seattle Center', 11, 38, 3.7);
 new CookieStore('capHill', 'Capitol Hill', 20, 38, 2.3);
 new CookieStore('alki', 'Alki', 2, 16, 4.6);
 
-alLStores.forEach(item => item.renderStore());
+function createTable(store) {
+  createTableHeader(store);
+  alLStores.forEach(item => createTableRow(item));
+  createTableFooter(store);
+}
+
+function createTableHeader(store) {
+  let parentTable = document.getElementById('storesTable');
+  let tblHeader = document.createElement('thead');
+  modifyDom(tblHeader, 'th', 'Locations');
+  for (let i = 0; i < store.hoursOfOperation.length; i++) {
+    modifyDom(tblHeader, 'td', store.hoursOfOperation[i]);
+  }
+  parentTable.appendChild(tblHeader);
+}
+
+function createTableRow(store) {
+  let parentTable = document.getElementById('storesTable');
+  let tblRow = document.createElement('tr');
+  modifyDom(tblRow, 'th', store.displayedName);
+  for (let i = 0; i < store.hoursOfOperation.length; i++) {
+    modifyDom(tblRow, 'td', store.cookiesPerHour[i]);
+  }
+  parentTable.appendChild(tblRow);
+}
+
+function createTableFooter(store) {
+  let parentTable = document.getElementById('storesTable');
+  let tblFooter = document.createElement('tfoot');
+  modifyDom(tblFooter, 'th', 'Totals');
+  for (let i = 0; i < store.hoursOfOperation.length; i++) {
+    modifyDom(tblFooter, 'td', store.hoursOfOperation[i]);
+  }
+  parentTable.appendChild(tblFooter);
+}
+
+createTable(alLStores[0]);
