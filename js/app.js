@@ -37,6 +37,7 @@ function CookieStore(storeName, displayName, minCust, maxCust, cookiesPerSale) {
   alLStores.push(this);
 
   // methods follow:
+
   //generate a random number of customers per hour based on location min/max
   this.generateCustomerLoad = function() {
     let custPossible = this.maxCust - this.minCust;
@@ -67,20 +68,17 @@ function CookieStore(storeName, displayName, minCust, maxCust, cookiesPerSale) {
   };
 
   this.getCookiesPerHour();
-}
+} //end of CookieStore contstructor
 
 //helper function to add an element to the dom
 var modifyDom = function(parent, childType, content) {
-  //get parent element
   let parentEl = parent;
-  //create child element
   let childEl = document.createElement(childType);
-  //add content to child
   childEl.innerText = content;
-  //append child to parent
   parentEl.appendChild(childEl);
 };
 
+//instantiate the cookie stores
 new CookieStore('firstPike', 'First and Pike', 23, 65, 6.3);
 new CookieStore('seaTac', 'SeaTac Airport', 3, 24, 1.2);
 new CookieStore('seaCenter', 'Seattle Center', 11, 38, 3.7);
@@ -112,18 +110,6 @@ function createTableHeader() {
   modifyDom(tblHeader, 'th', 'Totals');
   parentTable.appendChild(tblHeader);
 }
-
-//creates the row of data for a given store
-// function createTableRow(store) {
-//   let parentTable = document.getElementById('storesTable');
-//   let tblRow = document.createElement('tr');
-//   modifyDom(tblRow, 'th', store.displayedName);
-//   for (let i = 0; i < hoursOfOperation.length; i++) {
-//     modifyDom(tblRow, 'td', store.cookiesPerHour[i]);
-//   }
-//   modifyDom(tblRow, 'td', store.totalCookies);
-//   parentTable.appendChild(tblRow);
-// }
 
 //creates footer row
 function createTableFooter() {
