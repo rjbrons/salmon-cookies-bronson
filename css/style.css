@@ -1,6 +1,12 @@
 body {
   color: black;
-  background-color: rgb(210, 187, 124);
+  background-color: rgba(210, 187, 124, 0.8);
+}
+
+header {
+  font-size: 2em;
+  font-weight: bold;
+  margin: 20px;
 }
 
 table,
@@ -10,4 +16,11 @@ th {
   border-collapse: collapse;
   padding: 5px;
   text-align: center;
+}
+
+th,
+thead,
+tfoot {
+  background-color: #bc4c34;
+  color: #d0c9c2;
 }
