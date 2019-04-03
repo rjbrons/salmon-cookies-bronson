@@ -1,6 +1,6 @@
 'use strict';
 
-var alLStores = [];
+var allStores = [];
 var hoursOfOperation = [
   '6am',
   '7am',
@@ -34,7 +34,7 @@ function CookieStore(storeName, displayName, minCust, maxCust, cookiesPerSale) {
   this.cookiesPerSale = cookiesPerSale;
   this.custPerHour = [];
   this.totalCookies = 0;
-  alLStores.push(this);
+  allStores.push(this);
 
   // methods follow:
 
@@ -71,9 +71,12 @@ function CookieStore(storeName, displayName, minCust, maxCust, cookiesPerSale) {
 } //end of CookieStore contstructor
 
 //helper function to add an element to the dom
-var modifyDom = function(parent, childType, content) {
+var modifyDom = function(parent, childType, content, tagID = null) {
   let parentEl = parent;
   let childEl = document.createElement(childType);
+  if (tagID) {
+    childEl.setAttribute('id', tagID);
+  }
   childEl.innerText = content;
   parentEl.appendChild(childEl);
 };
@@ -95,7 +98,7 @@ function sumAllCookies() {
 //function to create the table by calling functions that create the parts of the table
 function createTable() {
   createTableHeader();
-  alLStores.forEach(item => item.render());
+  allStores.forEach(item => item.render());
   createTableFooter();
 }
 
@@ -105,7 +108,7 @@ function createTableHeader() {
   let tblHeader = document.createElement('thead');
   modifyDom(tblHeader, 'th', 'Locations');
   for (let i = 0; i < hoursOfOperation.length; i++) {
-    modifyDom(tblHeader, 'td', hoursOfOperation[i]);
+    modifyDom(tblHeader, 'th', hoursOfOperation[i]);
   }
   modifyDom(tblHeader, 'th', 'Totals');
   parentTable.appendChild(tblHeader);
@@ -117,9 +120,9 @@ function createTableFooter() {
   let tblFooter = document.createElement('tfoot');
   modifyDom(tblFooter, 'th', 'Totals');
   for (let i = 0; i < totalCookiesByHour.length; i++) {
-    modifyDom(tblFooter, 'td', totalCookiesByHour[i]);
+    modifyDom(tblFooter, 'th', totalCookiesByHour[i]);
   }
-  modifyDom(tblFooter, 'td', sumAllCookies());
+  modifyDom(tblFooter, 'th', sumAllCookies());
   parentTable.appendChild(tblFooter);
 }
 
