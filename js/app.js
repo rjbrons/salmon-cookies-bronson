@@ -1,342 +1,126 @@
 'use strict';
 
-let firstPike = {
-  storeName: 'firstPike',
-  displayedName: '1st and Pike',
-  minCust: 23,
-  maxCust: 65,
-  hoursOfOperation: [
-    '6am',
-    '7am',
-    '8am',
-    '9am',
-    '10am',
-    '11am',
-    '12pm',
-    '1pm',
-    '2pm',
-    '3pm',
-    '4pm',
-    '5pm',
-    '6pm',
-    '7pm',
-    '8pm'
-  ],
-  cookiesPerSale: 6.3,
-  cookiesPerHour: [],
-  custPerHour: [],
+var alLStores = [];
+var hoursOfOperation = [
+  '6am',
+  '7am',
+  '8am',
+  '9am',
+  '10am',
+  '11am',
+  '12pm',
+  '1pm',
+  '2pm',
+  '3pm',
+  '4pm',
+  '5pm',
+  '6pm',
+  '7pm',
+  '8pm'
+];
+var totalCookiesByHour = [];
+
+//initialize totalCookiesByHour array with zeros
+for (let i = 0; i < hoursOfOperation.length; i++) {
+  totalCookiesByHour.push(0);
+}
+
+function CookieStore(storeName, displayName, minCust, maxCust, cookiesPerSale) {
+  this.storeName = storeName;
+  this.displayedName = displayName;
+  this.minCust = minCust;
+  this.maxCust = maxCust;
+  this.cookiesPerHour = [];
+  this.cookiesPerSale = cookiesPerSale;
+  this.custPerHour = [];
+  this.totalCookies = 0;
+  alLStores.push(this);
+
+  // methods follow:
+
   //generate a random number of customers per hour based on location min/max
-  generateCustomerLoad: function() {
+  this.generateCustomerLoad = function() {
     let custPossible = this.maxCust - this.minCust;
     return Math.floor(Math.random() * custPossible + 1) + this.minCust;
-  },
+  };
   //generate cookies per hour based on customers per hour and hours of operation
-  getCookiesPerHour: function() {
-    this.hoursOfOperation.forEach(() => {
-      this.cookiesPerHour.push(
-        Math.ceil(this.generateCustomerLoad() * this.cookiesPerSale)
+  this.getCookiesPerHour = function() {
+    for (let i = 0; i < hoursOfOperation.length; i++) {
+      let numCookies = Math.ceil(
+        this.generateCustomerLoad() * this.cookiesPerSale
       );
-    });
-  },
-  //calculate total daily cookies summing cookie sales for each hour
-  calculateTotalCookies: function(perHourArray) {
-    let total = 0;
-    perHourArray.forEach(item => (total += item));
-    return total;
-  },
-  //displays store data in list
-  renderStore: function() {
-    let ulParent = document.createElement('ul');
-    ulParent.innerText = this.displayedName;
-    ulParent.setAttribute('id', this.storeName);
-    let parentEl = document.getElementById('storeInfo');
-    parentEl.appendChild(ulParent);
-    this.getCookiesPerHour();
-    for (let i = 0; i < this.hoursOfOperation.length; i++) {
-      let liEl = document.createElement('li');
-      liEl.innerText = `${this.hoursOfOperation[i]}: ${
-        this.cookiesPerHour[i]
-      } cookies.`;
-      ulParent.appendChild(liEl);
+      console.log(numCookies);
+      this.cookiesPerHour.push(numCookies);
+      this.totalCookies += numCookies;
+      totalCookiesByHour[i] += numCookies;
     }
-    let liEl = document.createElement('li');
-    liEl.innerText = `TOTAL: ${this.calculateTotalCookies(
-      this.cookiesPerHour
-    )} cookies`;
-    ulParent.appendChild(liEl);
-  }
+  };
+  //add its row to the table
+  this.render = function() {
+    let parentTable = document.getElementById('storesTable');
+    let tblRow = document.createElement('tr');
+    modifyDom(tblRow, 'th', this.displayedName);
+    for (let i = 0; i < hoursOfOperation.length; i++) {
+      modifyDom(tblRow, 'td', this.cookiesPerHour[i]);
+    }
+    modifyDom(tblRow, 'td', this.totalCookies);
+    parentTable.appendChild(tblRow);
+  };
+
+  this.getCookiesPerHour();
+} //end of CookieStore contstructor
+
+//helper function to add an element to the dom
+var modifyDom = function(parent, childType, content) {
+  let parentEl = parent;
+  let childEl = document.createElement(childType);
+  childEl.innerText = content;
+  parentEl.appendChild(childEl);
 };
 
-let seaTac = {
-  storeName: 'seaTac',
-  displayedName: 'SeaTac Airport',
-  minCust: 3,
-  maxCust: 24,
-  hoursOfOperation: [
-    '6am',
-    '7am',
-    '8am',
-    '9am',
-    '10am',
-    '11am',
-    '12pm',
-    '1pm',
-    '2pm',
-    '3pm',
-    '4pm',
-    '5pm',
-    '6pm',
-    '7pm',
-    '8pm'
-  ],
-  cookiesPerSale: 1.2,
-  cookiesPerHour: [],
-  custPerHour: [],
-  //generate a random number of customers per hour based on location min/max
-  generateCustomerLoad: function() {
-    let custPossible = this.maxCust - this.minCust;
-    return Math.floor(Math.random() * custPossible + 1) + this.minCust;
-  },
-  //generate cookies per hour based on customers per hour and hours of operation
-  getCookiesPerHour: function() {
-    this.hoursOfOperation.forEach(() => {
-      this.cookiesPerHour.push(
-        Math.ceil(this.generateCustomerLoad() * this.cookiesPerSale)
-      );
-    });
-  },
-  //calculate total daily cookies summing cookie sales for each hour
-  calculateTotalCookies: function(perHourArray) {
-    let total = 0;
-    perHourArray.forEach(item => (total += item));
-    return total;
-  },
-  //displays store data in list
-  renderStore: function() {
-    let ulParent = document.createElement('ul');
-    ulParent.innerText = this.displayedName;
-    ulParent.setAttribute('id', this.storeName);
-    let parentEl = document.getElementById('storeInfo');
-    parentEl.appendChild(ulParent);
-    this.getCookiesPerHour();
-    for (let i = 0; i < this.hoursOfOperation.length; i++) {
-      let liEl = document.createElement('li');
-      liEl.innerText = `${this.hoursOfOperation[i]}: ${
-        this.cookiesPerHour[i]
-      } cookies.`;
-      ulParent.appendChild(liEl);
-    }
-    let liEl = document.createElement('li');
-    liEl.innerText = `TOTAL: ${this.calculateTotalCookies(
-      this.cookiesPerHour
-    )} cookies`;
-    ulParent.appendChild(liEl);
-  }
-};
+//instantiate the cookie stores
+new CookieStore('firstPike', 'First and Pike', 23, 65, 6.3);
+new CookieStore('seaTac', 'SeaTac Airport', 3, 24, 1.2);
+new CookieStore('seaCenter', 'Seattle Center', 11, 38, 3.7);
+new CookieStore('capHill', 'Capitol Hill', 20, 38, 2.3);
+new CookieStore('alki', 'Alki', 2, 16, 4.6);
 
-let seaCenter = {
-  storeName: 'seaCenter',
-  displayedName: 'Seattle Center',
-  minCust: 11,
-  maxCust: 38,
-  hoursOfOperation: [
-    '6am',
-    '7am',
-    '8am',
-    '9am',
-    '10am',
-    '11am',
-    '12pm',
-    '1pm',
-    '2pm',
-    '3pm',
-    '4pm',
-    '5pm',
-    '6pm',
-    '7pm',
-    '8pm'
-  ],
-  cookiesPerSale: 3.7,
-  cookiesPerHour: [],
-  custPerHour: [],
-  //generate a random number of customers per hour based on location min/max
-  generateCustomerLoad: function() {
-    let custPossible = this.maxCust - this.minCust;
-    return Math.floor(Math.random() * custPossible + 1) + this.minCust;
-  },
-  //generate cookies per hour based on customers per hour and hours of operation
-  getCookiesPerHour: function() {
-    this.hoursOfOperation.forEach(() => {
-      this.cookiesPerHour.push(
-        Math.ceil(this.generateCustomerLoad() * this.cookiesPerSale)
-      );
-    });
-  },
-  //calculate total daily cookies summing cookie sales for each hour
-  calculateTotalCookies: function(perHourArray) {
-    let total = 0;
-    perHourArray.forEach(item => (total += item));
-    return total;
-  },
-  //displays store data in list
-  renderStore: function() {
-    let ulParent = document.createElement('ul');
-    ulParent.innerText = this.displayedName;
-    ulParent.setAttribute('id', this.storeName);
-    let parentEl = document.getElementById('storeInfo');
-    parentEl.appendChild(ulParent);
-    this.getCookiesPerHour();
-    for (let i = 0; i < this.hoursOfOperation.length; i++) {
-      let liEl = document.createElement('li');
-      liEl.innerText = `${this.hoursOfOperation[i]}: ${
-        this.cookiesPerHour[i]
-      } cookies.`;
-      ulParent.appendChild(liEl);
-    }
-    let liEl = document.createElement('li');
-    liEl.innerText = `TOTAL: ${this.calculateTotalCookies(
-      this.cookiesPerHour
-    )} cookies`;
-    ulParent.appendChild(liEl);
-  }
-};
+//helper function to toal all cookies at all locations
+function sumAllCookies() {
+  let sum = 0;
+  totalCookiesByHour.forEach(value => (sum += value));
+  return sum;
+}
 
-let capHill = {
-  storeName: 'capHill',
-  displayedName: 'Capitol Hill',
-  minCust: 20,
-  maxCust: 38,
-  hoursOfOperation: [
-    '6am',
-    '7am',
-    '8am',
-    '9am',
-    '10am',
-    '11am',
-    '12pm',
-    '1pm',
-    '2pm',
-    '3pm',
-    '4pm',
-    '5pm',
-    '6pm',
-    '7pm',
-    '8pm'
-  ],
-  cookiesPerSale: 2.3,
-  cookiesPerHour: [],
-  custPerHour: [],
-  //generate a random number of customers per hour based on location min/max
-  generateCustomerLoad: function() {
-    let custPossible = this.maxCust - this.minCust;
-    return Math.floor(Math.random() * custPossible + 1) + this.minCust;
-  },
-  //generate cookies per hour based on customers per hour and hours of operation
-  getCookiesPerHour: function() {
-    this.hoursOfOperation.forEach(() => {
-      this.cookiesPerHour.push(
-        Math.ceil(this.generateCustomerLoad() * this.cookiesPerSale)
-      );
-    });
-  },
-  //calculate total daily cookies summing cookie sales for each hour
-  calculateTotalCookies: function(perHourArray) {
-    let total = 0;
-    perHourArray.forEach(item => (total += item));
-    return total;
-  },
-  //displays store data in list
-  renderStore: function() {
-    let ulParent = document.createElement('ul');
-    ulParent.innerText = this.displayedName;
-    ulParent.setAttribute('id', this.storeName);
-    let parentEl = document.getElementById('storeInfo');
-    parentEl.appendChild(ulParent);
-    this.getCookiesPerHour();
-    for (let i = 0; i < this.hoursOfOperation.length; i++) {
-      let liEl = document.createElement('li');
-      liEl.innerText = `${this.hoursOfOperation[i]}: ${
-        this.cookiesPerHour[i]
-      } cookies.`;
-      ulParent.appendChild(liEl);
-    }
-    let liEl = document.createElement('li');
-    liEl.innerText = `TOTAL: ${this.calculateTotalCookies(
-      this.cookiesPerHour
-    )} cookies`;
-    ulParent.appendChild(liEl);
-  }
-};
+//function to create the table by calling functions that create the parts of the table
+function createTable() {
+  createTableHeader();
+  alLStores.forEach(item => item.render());
+  createTableFooter();
+}
 
-let alki = {
-  storeName: 'alki',
-  displayedName: 'Alki',
-  minCust: 2,
-  maxCust: 16,
-  hoursOfOperation: [
-    '6am',
-    '7am',
-    '8am',
-    '9am',
-    '10am',
-    '11am',
-    '12pm',
-    '1pm',
-    '2pm',
-    '3pm',
-    '4pm',
-    '5pm',
-    '6pm',
-    '7pm',
-    '8pm'
-  ],
-  cookiesPerSale: 4.6,
-  cookiesPerHour: [],
-  custPerHour: [],
-  //generate a random number of customers per hour based on location min/max
-  generateCustomerLoad: function() {
-    let custPossible = this.maxCust - this.minCust;
-    return Math.floor(Math.random() * custPossible + 1) + this.minCust;
-  },
-  //generate cookies per hour based on customers per hour and hours of operation
-  getCookiesPerHour: function() {
-    this.hoursOfOperation.forEach(() => {
-      this.cookiesPerHour.push(
-        Math.ceil(this.generateCustomerLoad() * this.cookiesPerSale)
-      );
-    });
-  },
-  //calculate total daily cookies summing cookie sales for each hour
-  calculateTotalCookies: function(perHourArray) {
-    let total = 0;
-    perHourArray.forEach(item => (total += item));
-    return total;
-  },
-  //displays store data in list
-  renderStore: function() {
-    let ulParent = document.createElement('ul');
-    ulParent.innerText = this.displayedName;
-    ulParent.setAttribute('id', this.storeName);
-    let parentEl = document.getElementById('storeInfo');
-    parentEl.appendChild(ulParent);
-    this.getCookiesPerHour();
-    for (let i = 0; i < this.hoursOfOperation.length; i++) {
-      let liEl = document.createElement('li');
-      liEl.innerText = `${this.hoursOfOperation[i]}: ${
-        this.cookiesPerHour[i]
-      } cookies.`;
-      ulParent.appendChild(liEl);
-    }
-    let liEl = document.createElement('li');
-    liEl.innerText = `TOTAL: ${this.calculateTotalCookies(
-      this.cookiesPerHour
-    )} cookies`;
-    ulParent.appendChild(liEl);
+//creates the table header row
+function createTableHeader() {
+  let parentTable = document.getElementById('storesTable');
+  let tblHeader = document.createElement('thead');
+  modifyDom(tblHeader, 'th', 'Locations');
+  for (let i = 0; i < hoursOfOperation.length; i++) {
+    modifyDom(tblHeader, 'td', hoursOfOperation[i]);
   }
-};
+  modifyDom(tblHeader, 'th', 'Totals');
+  parentTable.appendChild(tblHeader);
+}
 
-firstPike.renderStore();
-seaTac.renderStore();
-seaCenter.renderStore();
-capHill.renderStore();
-alki.renderStore();
+//creates footer row
+function createTableFooter() {
+  let parentTable = document.getElementById('storesTable');
+  let tblFooter = document.createElement('tfoot');
+  modifyDom(tblFooter, 'th', 'Totals');
+  for (let i = 0; i < totalCookiesByHour.length; i++) {
+    modifyDom(tblFooter, 'td', totalCookiesByHour[i]);
+  }
+  modifyDom(tblFooter, 'td', sumAllCookies());
+  parentTable.appendChild(tblFooter);
+}
+
+createTable();
