@@ -49,7 +49,6 @@ function CookieStore(storeName, displayName, minCust, maxCust, cookiesPerSale) {
       let numCookies = Math.ceil(
         this.generateCustomerLoad() * this.cookiesPerSale
       );
-      console.log(numCookies);
       this.cookiesPerHour.push(numCookies);
       this.totalCookies += numCookies;
       totalCookiesByHour[i] += numCookies;
@@ -71,11 +70,19 @@ function CookieStore(storeName, displayName, minCust, maxCust, cookiesPerSale) {
 } //end of CookieStore contstructor
 
 //helper function to add an element to the dom
-var modifyDom = function(parent, childType, content, tagID = null) {
+var modifyDom = function(
+  parent,
+  childType,
+  content,
+  tagId = null,
+  tagClass = null
+) {
   let parentEl = parent;
   let childEl = document.createElement(childType);
-  if (tagID) {
-    childEl.setAttribute('id', tagID);
+  if (tagId) {
+    childEl.setAttribute('id', tagId);
+  } else if (tagClass) {
+    childEl.setAttribute('class', tagClass);
   }
   childEl.innerText = content;
   parentEl.appendChild(childEl);
@@ -127,3 +134,22 @@ function createTableFooter() {
 }
 
 createTable();
+
+//event handling for form
+let formEl = document.getElementById('storeInput');
+formEl.addEventListener('submit', function(event) {
+  event.preventDefault();
+  new CookieStore(
+    event.target[1],
+    event.target[2],
+    event.target[3],
+    event.target[4],
+    event.target[5]
+  );
+  let tableEl = document.getElementById('storesTable');
+  tableEl.innerHTML = '';
+  createTable();
+  console.log(event);
+});
+
+// event.target[1]....[5].value
