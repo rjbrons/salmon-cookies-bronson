@@ -54,6 +54,17 @@ function CookieStore(storeName, displayName, minCust, maxCust, cookiesPerSale) {
       totalCookiesByHour[i] += numCookies;
     }
   };
+  //add its row to the table
+  this.render = function() {
+    let parentTable = document.getElementById('storesTable');
+    let tblRow = document.createElement('tr');
+    modifyDom(tblRow, 'th', this.displayedName);
+    for (let i = 0; i < hoursOfOperation.length; i++) {
+      modifyDom(tblRow, 'td', this.cookiesPerHour[i]);
+    }
+    modifyDom(tblRow, 'td', this.totalCookies);
+    parentTable.appendChild(tblRow);
+  };
 
   this.getCookiesPerHour();
 }
@@ -86,7 +97,7 @@ function sumAllCookies() {
 //function to create the table by calling functions that create the parts of the table
 function createTable() {
   createTableHeader();
-  alLStores.forEach(item => createTableRow(item));
+  alLStores.forEach(item => item.render());
   createTableFooter();
 }
 
@@ -103,16 +114,16 @@ function createTableHeader() {
 }
 
 //creates the row of data for a given store
-function createTableRow(store) {
-  let parentTable = document.getElementById('storesTable');
-  let tblRow = document.createElement('tr');
-  modifyDom(tblRow, 'th', store.displayedName);
-  for (let i = 0; i < hoursOfOperation.length; i++) {
-    modifyDom(tblRow, 'td', store.cookiesPerHour[i]);
-  }
-  modifyDom(tblRow, 'td', store.totalCookies);
-  parentTable.appendChild(tblRow);
-}
+// function createTableRow(store) {
+//   let parentTable = document.getElementById('storesTable');
+//   let tblRow = document.createElement('tr');
+//   modifyDom(tblRow, 'th', store.displayedName);
+//   for (let i = 0; i < hoursOfOperation.length; i++) {
+//     modifyDom(tblRow, 'td', store.cookiesPerHour[i]);
+//   }
+//   modifyDom(tblRow, 'td', store.totalCookies);
+//   parentTable.appendChild(tblRow);
+// }
 
 //creates footer row
 function createTableFooter() {

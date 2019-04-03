@@ -2,3 +2,12 @@ body {
   color: black;
   background-color: rgb(210, 187, 124);
 }
+
+table,
+td,
+th {
+  border: thin dotted black;
+  border-collapse: collapse;
+  padding: 5px;
+  text-align: center;
+}
