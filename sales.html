@@ -8,8 +8,45 @@
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
-    <header></header>
+    <header>
+      <img src="./img/salmon.png" alt="salmon" /> Pat's Salmon Cookies Sales
+      Page <img src="./img/salmon.png" alt="salmon" />
+    </header>
+    <!-- <nav>
+      <button>
+        Home
+      </button>
+      <button>
+        Order Form
+      </button>
+    </nav> -->
     <main id="storeInfo"></main>
+    <form id="storeInput">
+      <fieldset>
+        <input id="storeId" required type="text" placeholder=" store ID" />
+        <input id="displayName" required type="text" placeholder="Store Name" />
+        <input
+          id="minCust"
+          required
+          type="number"
+          placeholder="min customers"
+        />
+        <input
+          id="maxCust"
+          required
+          type="number"
+          placeholder="max customers"
+        />
+        <input
+          id="cookiesPerSale"
+          required
+          type="number"
+          step=".1"
+          placeholder="cookies per sale"
+        />
+        <button required type="submit">Create New Store</button>
+      </fieldset>
+    </form>
     <div id="storesTable"></div>
     <footer></footer>
   </body>
