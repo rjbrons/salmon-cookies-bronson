@@ -41,7 +41,7 @@ function CookieStore(storeName, displayName, minCust, maxCust, cookiesPerSale) {
   //generate a random number of customers per hour based on location min/max
   this.generateCustomerLoad = function() {
     let custPossible = this.maxCust - this.minCust;
-    return Math.floor(Math.random() * custPossible + 1) + this.minCust;
+    return Math.floor(Math.random() * (custPossible + 1)) + this.minCust;
   };
   //generate cookies per hour based on customers per hour and hours of operation
   this.getCookiesPerHour = function() {

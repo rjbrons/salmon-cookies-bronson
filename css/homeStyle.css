@@ -1,0 +1,37 @@
+body {
+  color: black;
+  background-color: rgba(210, 187, 124, 0.8);
+}
+
+header {
+  font-size: 4em;
+  font-weight: bold;
+  margin: 20px;
+  width: auto;
+}
+
+.buttons {
+  display: inline-block;
+  outline: thin black solid;
+  height: 50px;
+  width: 100px;
+  font-size: 16pt;
+  /* background-color: #36342b; */
+  color: #d0c9c2;
+}
+
+.buttons img {
+  width: 100%;
+}
+
+.buttons span {
+  position: absolute;
+}
+
+header img {
+  height: 30px;
+}
+
+nav {
+  outline: thin solid red;
+}
