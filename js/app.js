@@ -139,15 +139,15 @@ createTable();
 let formEl = document.getElementById('storeInput');
 formEl.addEventListener('submit', function(event) {
   event.preventDefault();
-  console.log(event.target);
   new CookieStore(
     event.target[1].value,
     event.target[2].value,
-    event.target[3].value,
-    event.target[4].value,
-    event.target[5].value
+    Number(event.target[3].value),
+    Number(event.target[4].value),
+    Number(event.target[5].value)
   );
   let tableEl = document.getElementById('storesTable');
   tableEl.innerHTML = '';
+  document.getElementById('storeInput').reset();
   createTable();
 });

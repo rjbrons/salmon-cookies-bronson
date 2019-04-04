@@ -13,7 +13,7 @@ table,
 td,
 th {
   border: thin dotted black;
-  border-collapse: collapse;
+  /* border-collapse: collapse; */
   padding: 5px;
   text-align: center;
 }
@@ -27,4 +27,26 @@ tfoot {
 
 td {
   background-color: #d0c9c2;
+}
+
+form {
+  padding: 15px;
+  outline: thin black solid;
+}
+
+input {
+  height: 10px;
+  width: 100px;
+  padding: 10px;
+}
+
+button {
+  height: auto;
+  width: auto;
+  background-color: #36342b;
+  color: #d0c9c2;
+}
+
+header img {
+  height: 30px;
 }
