@@ -69,6 +69,13 @@ function CookieStore(storeName, displayName, minCust, maxCust, cookiesPerSale) {
   this.getCookiesPerHour();
 } //end of CookieStore contstructor
 
+//instantiate the cookie stores
+new CookieStore('firstPike', 'First and Pike', 23, 65, 6.3);
+new CookieStore('seaTac', 'SeaTac Airport', 3, 24, 1.2);
+new CookieStore('seaCenter', 'Seattle Center', 11, 38, 3.7);
+new CookieStore('capHill', 'Capitol Hill', 20, 38, 2.3);
+new CookieStore('alki', 'Alki', 2, 16, 4.6);
+
 //helper function to add an element to the dom
 var modifyDom = function(
   parent,
@@ -87,13 +94,6 @@ var modifyDom = function(
   childEl.innerText = content;
   parentEl.appendChild(childEl);
 };
-
-//instantiate the cookie stores
-new CookieStore('firstPike', 'First and Pike', 23, 65, 6.3);
-new CookieStore('seaTac', 'SeaTac Airport', 3, 24, 1.2);
-new CookieStore('seaCenter', 'Seattle Center', 11, 38, 3.7);
-new CookieStore('capHill', 'Capitol Hill', 20, 38, 2.3);
-new CookieStore('alki', 'Alki', 2, 16, 4.6);
 
 //helper function to toal all cookies at all locations
 function sumAllCookies() {
@@ -132,6 +132,8 @@ function createTableFooter() {
   modifyDom(tblFooter, 'th', sumAllCookies());
   parentTable.appendChild(tblFooter);
 }
+
+//Executable code//
 
 createTable();
 
