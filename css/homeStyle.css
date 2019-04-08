@@ -26,9 +26,9 @@ nav div:last-child {
   display: none;
   width: 200px;
   background-color: #a46845;
-  position: absolute;
-  left: 450px;
-  top: 300px;
+  position: fixed;
+  left: 50px;
+  top: 100px;
   font-size: 18pt;
   font-weight: lighter;
   border: medium solid black;
